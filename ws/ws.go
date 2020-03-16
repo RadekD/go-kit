@@ -3,13 +3,13 @@ package ws
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"net/http"
 	"reflect"
 	"sync"
 
 	"github.com/gorilla/websocket"
+	"github.com/pkg/errors"
 )
 
 var ErrUnknowHandler = errors.New("ws: unknown handler")
