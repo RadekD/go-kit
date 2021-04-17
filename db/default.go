@@ -4,16 +4,17 @@ import (
 	"context"
 	"database/sql"
 	"database/sql/driver"
+	"sync"
 	"time"
 )
 
 var dbConn *sql.DB
+var dbConnOnce sync.Once
 
 func Init(driverName, dataSourceName string) (err error) {
-	if dbConn != nil {
-		panic("allowed only one initialization")
-	}
-	dbConn, err = sql.Open(driverName, dataSourceName)
+	dbConnOnce.Do(func() {
+		dbConn, err = sql.Open(driverName, dataSourceName)
+	})
 	return
 }
 
